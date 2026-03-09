@@ -4,7 +4,7 @@ claude-specs() {
     return 1
   fi
 
-  claude --permission-mode plan "Use the GitHub MCP to fetch ${1} — read the issue title, description, labels, and any comments.
+  claude --permission-mode plan --model claude-sonnet-4-6 "Use the GitHub MCP to fetch ${1} — read the issue title, description, labels, and any comments. Also explore the relevant areas of the codebase mentioned in or implied by the issue.
 
 Your goal is to evaluate whether this issue has enough detail to be implemented unambiguously, and if not, rewrite the description.
 
@@ -41,7 +41,7 @@ claude-implement() {
     return 1
   fi
 
-  claude --permission-mode plan "Use the GitHub MCP to fetch ${1} — read the issue title, description, and view any attachments such as screenshots.
+  claude --permission-mode plan --model claude-opus-4-6 "Use the GitHub MCP to fetch ${1} — read the issue title, description, and view any attachments such as screenshots.
 
 Your goal is to implement this issue. Start by understanding the requirements, then explore the relevant parts of the codebase.
 
@@ -64,7 +64,7 @@ claude-pr() {
     return 1
   fi
 
-  claude --permission-mode plan "Look at the git diff between ${branch} and main, and read the commit messages.
+  claude --permission-mode acceptEdits --model claude-sonnet-4-6 "Look at the git diff between ${branch} and main, and read the commit messages.
 
 Use the GitHub MCP to create a pull request from ${branch} targeting main.
 
@@ -101,7 +101,7 @@ claude-review() {
     return 1
   fi
 
-  claude --permission-mode plan "Use the GitHub MCP to fetch ${1} — both the diff and all issue-level comments.
+  claude --permission-mode plan --model claude-opus-4-6 "Use the GitHub MCP to fetch ${1} — both the diff and all issue-level comments.
 
 These comments were left by an automated reviewer and are often wrong. For each comment:
 1. Read the relevant code in the diff
