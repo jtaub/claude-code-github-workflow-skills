@@ -6,33 +6,58 @@ claude-specs() {
 
   claude --permission-mode plan --model claude-sonnet-4-6 "Use the GitHub MCP to fetch ${1} — read the issue title, description, labels, and any comments. Also explore the relevant areas of the codebase mentioned in or implied by the issue.
 
-Your goal is to evaluate whether this issue has enough detail to be implemented unambiguously, and if not, rewrite the description.
+You will work in two phases. Do not skip ahead.
 
-A well-specified issue must have these sections:
+---
 
-1. **Summary** — What and why. User story format ('As a [role], I want [goal], so that [benefit]') is recommended but not mandatory. What matters is clearly stating the problem or need, not just the solution.
-2. **Acceptance Criteria** — Testable, unambiguous statements. Use Given/When/Then or simple checklists. Each criterion must be verifiable by a developer or reviewer without needing to ask clarifying questions.
-3. **Out of Scope** — Explicitly bounds the work to prevent scope creep and misaligned expectations.
-4. **Technical Notes** (optional) — Context for the implementer: relevant code areas, dependencies, API contracts, migration concerns.
-5. **Screenshots** (optional) — Links or embedded visuals when UI is involved.
+## Phase 1: Clarifying Questions (always required)
 
-Evaluate the existing description against these criteria. Consider:
-- Are the acceptance criteria actually testable, or are they vague ('should work well', 'handle edge cases')?
-- Is the scope bounded, or could an implementer reasonably interpret it too broadly or too narrowly?
-- Is the 'why' clear, or does the issue only describe a solution without motivating the problem?
-- Are there implicit assumptions that should be made explicit?
+Before writing anything, identify gaps and ambiguities in the issue. You must produce a numbered list of clarifying questions for me to answer. Do not skip this phase even if the issue seems well-specified — there are almost always implicit assumptions worth surfacing.
 
-If the issue already meets all required criteria, say so and do not modify it. Explain briefly what's already covered.
+For each question, briefly state *why* it matters for the implementation (one sentence). Group questions by category:
 
-If the issue is underspecified, produce a rewritten description that:
-- Preserves all existing information and intent — do not discard anything the author wrote
-- Fills in gaps by inferring from context (title, labels, comments, and codebase exploration)
-- Clearly marks any assumptions you made so I can verify them
-- Uses the section structure above
+**Scope & Behavior**
+- What edge cases or error states are unspecified?
+- Could a developer reasonably interpret the scope too broadly or too narrowly?
+- Are there user-facing behaviors that aren't pinned down (e.g. empty states, loading states, error messages)?
 
-Present the rewritten description to me as a plan. After I approve, use the GitHub MCP to update the issue body.
+**Acceptance Criteria**
+- Which stated criteria are vague or untestable as written ('should work well', 'handle edge cases')?
+- What's the definition of done — how will a reviewer know this is complete?
 
-If you cannot confidently infer key details (e.g., the intended behavior is genuinely ambiguous), list specific questions to ask the issue author rather than guessing."
+**Motivation & Trade-offs**
+- Is the 'why' clear, or does the issue describe a solution without stating the underlying problem?
+- Are there alternative approaches the author may have considered and ruled out?
+
+**Technical Assumptions**
+- What does the implementation depend on that isn't stated (APIs, data models, other in-flight work)?
+- Are there performance, security, or backwards-compatibility constraints implied but not written?
+
+Ask me between 3 and 10 questions. Prioritize questions where the answer would meaningfully change what gets built or how. Do not ask about things that are clearly specified or genuinely don't matter.
+
+Use the typical 'ask question' tool that you're familiar with to collect my answers, and then proceed to Phase 2.
+
+---
+
+## Phase 2: Rewritten Spec (after I answer your questions)
+
+Once I've answered, produce a rewritten issue description using this structure:
+
+1. **Summary** — What and why. User story format is recommended but not mandatory.
+2. **Acceptance Criteria** — Testable, unambiguous statements using Given/When/Then or checklists. Each must be verifiable without asking clarifying questions.
+3. **Out of Scope** (optional) — Explicitly bounds the work.
+4. **Technical Notes** (optional) — A short section highlighting relevant parts of the code. Do *not* suggest implementation details here. Do *not* use this section for an implementation plan.
+5. **Screenshots** (optional) — Links or visuals for UI changes.
+
+Rules for the rewrite:
+- Preserve all existing information and intent — discard nothing the author wrote
+- Incorporate my answers from Phase 1
+- Clearly mark any remaining assumptions you made
+- If the original issue already fully satisfies a section, keep it as-is
+
+Present the rewrite as a plan. After I approve, update the issue body via the GitHub MCP.
+
+Do *not* produce an implementation plan. Your only goal is a well-specified GitHub issue."
 }
 
 claude-implement() {
