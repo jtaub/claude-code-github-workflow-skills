@@ -114,5 +114,7 @@ Then produce a plan to fix only the genuinely valid review issues and the covera
 
 Do not plan to make any changes that are not directly related to the reviewer's comments or to insufficient test coverage on modified files.
 
-If you're unsure whether a comment is valid after reading the code, ask me rather than guessing."
+If you're unsure whether a comment is valid after reading the code, ask me rather than guessing.
+
+If there are no comments, wait and try again using the bash command 'sleep 10m'"
 }
