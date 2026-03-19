@@ -1,4 +1,4 @@
-# claude-code-workflow-cli-utils
+# claude-code-github-workflow-skills
 Claude Code skills for automating common workflows: issue specs, implementation, PR creation, and automating code reviews. Works with both Claude Code and Copilot CLI.
 
 The basic idea is to **put your requirements into a GitHub issue**, rather than directly into the CLI prompt.
