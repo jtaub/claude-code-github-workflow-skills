@@ -13,6 +13,7 @@ For the PR title: write a concise summary in imperative mood (e.g. 'Add user exp
 
 For the PR body, use exactly this format:
 
+```markdown
 ### ➕ Added
 
 1. (list each new feature, endpoint, component, or capability — one per line)
@@ -24,6 +25,7 @@ For the PR body, use exactly this format:
 ### 🐞 Fixed
 
 1. (list each bug fix — one per line)
+```
 
 If a section has no items, omit it entirely.
 
